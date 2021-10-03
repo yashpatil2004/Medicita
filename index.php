@@ -14,6 +14,7 @@
 	<script src="js/deznav-init.js"></script>
     <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
     <script src="js/styleSwitcher.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body class="h-100">
     <div class="authincation h-100">
@@ -25,17 +26,17 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
 									<div class="text-center mb-3">
-										<a href="index.html"><img src="images/logo-full.png" alt=""></a>
+										<a href="index.html"><img src="images/logo-full.png" alt="" ></a>
 									</div>
                                     <h4 class="text-center mb-4">Sign in your account</h4>
-                                    <form id="login-form" action="#" method="POST">
+                                    <form id="login-form" method="POST">
                                     <div class="form-group">
                                             <label class="text-label"><strong>Email</strong></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                                 </div>
-                                                <input type="text" class="form-control" id="val-email" name="val-email" placeholder="Email">
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -44,7 +45,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                                 </div>
-                                                <input type="password" class="form-control" id="val-password" name="val-password" placeholder="Password">
+                                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                                                 
                                             </div>
                                         </div>
@@ -54,11 +55,11 @@
                                                
                                             </div>
                                             <div class="form-group">
-                                                <a href="page-forgot-password.html">Forgot Password?</a>
+                                                <a href="forgotpassword.php">Forgot Password?</a>
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">Sign Me In</button>
+                                            <button type="submit" id="submit" class="btn btn-primary btn-block">Sign Me In</button>
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
@@ -74,23 +75,25 @@
     </div>
 </body>
 <script>
-    $("#login-form").validate({
+    
+$(document).ready(function() {
+$("#login-form").validate({
     rules: {
-        "val-email": {
+        "email": {
             required: !0,
             email: 3
         },
-        "val-password": {
+        "password": {
             required: !0,
             minlength: 5
         }
     },
     messages: {
-        "val-email": {
+        "email": {
             required: "Please enter a email",
             email: "Please enter valid email"
         },
-        "val-password": {
+        "password": {
             required: "Please provide a password",
             minlength: "Your password must be at least 5 characters long"
         }
@@ -107,6 +110,47 @@
     success: function(e) {
         jQuery(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove()
     },  
+    submitHandler: function(form,e) {
+            e.preventDefault();
+            console.log('Form submitted');
+           
+            var email = $("#email").val();
+            var password = $("#password").val();
+            
+                        $.ajax({
+                type: "POST",
+                url: "action/loginprocess.php",
+                dataType: "json",
+                data: {email:email, password:password},
+                success : function(data){
+                    if (data){
+                        swal("Good job!", "Login successfully", "success");
+                        setTimeout(function(){ 
+                            window.location.href = "dashboard.php";
+                        }, 5000);
+
+                    
+                    } else {
+                        swal("Bad Luck!", "Please enter valid email and password", "error");
+                    }
+                }
+            });
+            return false;
+        }
+    
 });
+
+
+// $('#login-form').on("submit",function(e){
+//   e.preventDefault();
+
+//   console.log("dsd")
+
+
+
+
+// });
+});
+
 </script>
 </html>
