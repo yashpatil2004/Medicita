@@ -31,13 +31,12 @@
                                     <h4 class="text-center mb-4">Forgot Password</h4>
                                     <form id="login-form" method="POST">
                                     <div class="form-group">
-                                            <label class="text-label"><strong>Email</strong></label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                                                </div>
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                                        <label class="text-label"><strong>Email</strong></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                             </div>
+                                            <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                                         </div>
                                         </div>
                                         <div class="text-center">
