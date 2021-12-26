@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Mediqu - Bootstrap Admin Dashboard </title>
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo (2).png">
 	<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="vendor/global/global.min.js"></script>
@@ -29,14 +29,14 @@
 										<a href="index.html"><img src="images/logo-full.png" alt="" ></a>
 									</div>
                                     <h4 class="text-center mb-4">Sign in your account</h4>
-                                    <form id="login-form" method="POST">
+                                    <form id="login-form" method="POST" >
                                     <div class="form-group">
                                             <label class="text-label"><strong>Email</strong></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                                 </div>
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="Email" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -75,7 +75,6 @@
     </div>
 </body>
 <script>
-    
 $(document).ready(function() {
 $("#login-form").validate({
     rules: {
@@ -117,40 +116,53 @@ $("#login-form").validate({
             var email = $("#email").val();
             var password = $("#password").val();
             
-                        $.ajax({
+                $.ajax({
                 type: "POST",
                 url: "action/loginprocess.php",
                 dataType: "json",
                 data: {email:email, password:password},
                 success : function(data){
-                    if (data){
+                    if (data == 1){
                         swal("Good job!", "Login successfully", "success");
                         setTimeout(function(){ 
                             window.location.href = "dashboard.php";
-                        }, 5000);
-
+                        }, 2000);
                     
-                    } else {
+                    } 
+                    else if (data == 2){
+                        swal("Good job!", "Login successfully", "success");
+                        setTimeout(function(){ 
+                            window.location.href = "collegeadministrator_dashboard.php";
+                        }, 2000);
+                    
+                    }
+                    else if (data == 3){
+                        swal("Good job!", "Login successfully", "success");
+                        setTimeout(function(){ 
+                            window.location.href = "faculty_dashboard.php";
+                        }, 2000);
+                    
+                    }
+                    else if (data == 4){
+                        swal("Good job!", "Login successfully", "success");
+                        setTimeout(function(){ 
+                            window.location.href = "student_dashboard.php";
+                        }, 2000);
+                    
+                    } 
+                     else {
                         swal("Bad Luck!", "Please enter valid email and password", "error");
+                        setTimeout(function(){ 
+                            window.location.href = "index.php";
+                        }, 2000);
+                    
                     }
                 }
             });
             return false;
-        }
-    
+        } 
 });
-
-
-// $('#login-form').on("submit",function(e){
-//   e.preventDefault();
-
-//   console.log("dsd")
-
-
-
-
-// });
 });
-
 </script>
+
 </html>
